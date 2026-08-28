@@ -20,6 +20,8 @@ builder.Services.AddDbContext<ApplicationDbcontext>(options =>
 builder.Services.AddScoped<IJobService, JobService>();
 //scoped panirukom
 //Scoped    → one per HTTP request
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+//adding the service with Scoped Lifeline for company 
 var app = builder.Build();//this line builds the application and 
 //returns a WebApplication instance that 
 // we can use to configure the HTTP request pipeline.
