@@ -2,9 +2,10 @@ using JobHub.API.DTOs;
 using JobHub.API.Services;
 using Microsoft.AspNetCore.Mvc;
 namespace JobHub.API.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
-public class JobController:ControllerBase
+public class JobController : ControllerBase
 //inheritence because it gives all the methods of
 //ok(),not found()
 //ControllerBase provides methods and properties 
@@ -14,7 +15,7 @@ public class JobController:ControllerBase
     private readonly IJobService _jobService;
     public JobController(IJobService jobService)
     {
-        _jobService=jobService;
+        _jobService = jobService;
     }
     //here we depend on the Ijobservice where we define all methods
     //of get,post(The controller depends on the interface)
@@ -22,18 +23,18 @@ public class JobController:ControllerBase
     [HttpGet]
     public async Task<ActionResult<JobResponseDto>> GetAll()
     {
-        var jobs=await _jobService.GetAllAsync();
+        var jobs = await _jobService.GetAllAsync();
         return Ok(jobs);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<JobResponseDto>> GetById(int id)
     {
-        var job=await _jobService.GetByIdAsync(id);
+        var job = await _jobService.GetByIdAsync(id);
         if (job == null)
         {
             return NotFound();
-    
+
         }
         else
         {
@@ -43,8 +44,30 @@ public class JobController:ControllerBase
     [HttpPost]
     public async Task<ActionResult<JobResponseDto>> Create([FromBody] CreateJobDto dto)
     {
-    var job = await _jobService.CreateAsync(dto);
+        var job = await _jobService.CreateAsync(dto);
 
-    return Ok(job);
+        return Ok(job);
+    }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(
+    int id,
+    [FromBody] CreateJobDto dto)
+    {
+        var updated = await _jobService.UpdateAsync(id, dto);
+
+        if (!updated)
+            return NotFound();
+
+        return NoContent();
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _jobService.DeleteAsync(id);
+
+        if (!deleted)
+            return NotFound();
+
+        return NoContent();
     }
 }

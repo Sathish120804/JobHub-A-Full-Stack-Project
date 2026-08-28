@@ -10,6 +10,7 @@ public interface IJobService
     Task<JobResponseDto?> GetByIdAsync(int id);//idhu only for onejob ku mattum
     Task<JobResponseDto> CreateAsync(CreateJobDto dto);//Client-->API(Create the job)-->Service(Create the job)
     //-->Repository(Create the job)
-    
+    Task<bool> UpdateAsync(int id, CreateJobDto dto);
+    Task<bool> DeleteAsync(int id);
 
 }
