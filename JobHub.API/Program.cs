@@ -22,6 +22,8 @@ builder.Services.AddScoped<IJobService, JobService>();
 //Scoped    → one per HTTP request
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 //adding the service with Scoped Lifeline for company 
+builder.Services.AddScoped<IApplicationService, ApplicationService>();
+//adding the application service in our program.cs
 var app = builder.Build();//this line builds the application and 
 //returns a WebApplication instance that 
 // we can use to configure the HTTP request pipeline.
