@@ -167,3 +167,5 @@ C:\Users\sathi\OneDrive\Desktop\JOB-HUB\JobHub.API\obj\Debug\net10.0\JobHub.API.
 C:\Users\sathi\OneDrive\Desktop\JOB-HUB\JobHub.API\obj\Debug\net10.0\JobHub.API.genruntimeconfig.cache
 C:\Users\sathi\OneDrive\Desktop\JOB-HUB\JobHub.API\obj\Debug\net10.0\ref\JobHub.API.dll
 C:\Users\sathi\OneDrive\Desktop\JOB-HUB\JobHub.API\obj\Debug\net10.0\JobHub.API.sourcelink.json
+C:\Users\sathi\OneDrive\Desktop\JOB-HUB\JobHub.API\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\sathi\OneDrive\Desktop\JOB-HUB\JobHub.API\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
