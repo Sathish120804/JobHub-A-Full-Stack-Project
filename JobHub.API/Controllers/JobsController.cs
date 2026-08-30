@@ -1,5 +1,6 @@
 using JobHub.API.DTOs;
 using JobHub.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace JobHub.API.Controllers;
 
@@ -41,6 +42,7 @@ public class JobController : ControllerBase
             return Ok(job);
         }
     }
+    [Authorize(Roles = "Employer")]
     [HttpPost]
     public async Task<ActionResult<JobResponseDto>> Create([FromBody] CreateJobDto dto)
     {
