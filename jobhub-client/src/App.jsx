@@ -3,30 +3,58 @@ import Home from "./Pages/Home";
 import Jobs from "./Pages/Jobs";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-import Notfound from "./Pages/Notfound";
-import { BrowserRouter,Routes,Route } from "react-router-dom";
+import NotFound from "./Pages/Notfound";
+import JobDetails from "./Pages/JobDetails";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
-      <Navbar brandName="JobHub" />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/jobs" element={<Jobs />}></Route>
-          <Route path="/login" element={<Login />} />
+    return (
+        <BrowserRouter>
+            <Navbar brandName="JobHub" />
 
-          <Route path="/register" element={<Register />} />
+            <Routes>
+                <Route
+                    path="/"
+                    element={<Home />}
+                />
 
-          <Route path="*" element={<Notfound />} />
-        </Routes>
-      </BrowserRouter>
-      
+                <Route
+                    path="/jobs"
+                    element={
+                        <ProtectedRoute>
+                            <Jobs />
+                        </ProtectedRoute>
+                    }
+                />
 
+                <Route
+                    path="/jobs/:id"
+                    element={
+                        <ProtectedRoute>
+                            <JobDetails />
+                        </ProtectedRoute>
+                    }
+                />
 
-    </>
-  );
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />
+
+                <Route
+                    path="/register"
+                    element={<Register />}
+                />
+
+                <Route
+                    path="*"
+                    element={<NotFound />}
+                />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

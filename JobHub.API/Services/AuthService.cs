@@ -29,41 +29,43 @@ public class AuthService : IAuthService
         //step 1 for login the user
         //We need to check:Does a user with this email AND password exist?
         var user = await _dbcontext.Users
-        .FirstOrDefaultAsync(u => u.Email == dto.Email && u.PasswordHash == dto.PasswordHash
+        .FirstOrDefaultAsync(u => u.Email == dto.Email && u.PasswordHash == dto.Password
         );
+
         if (user == null)
         {
             return null;
         }
 
         var claims = new List<Claim>
-        // Create JWT claims to store authenticated user's ID, name, email, and role.
-        // These claims are included in the token and used for user identification and authorization.
-        {
-            new Claim(
-                ClaimTypes.NameIdentifier,
-                user.Id.ToString()),
+    // Create JWT claims to store authenticated user's ID, name, email, and role.
+    // These claims are included in the token and used for user identification and authorization.
+    {
+        new Claim(
+            ClaimTypes.NameIdentifier,
+            user.Id.ToString()),
 
-            new Claim(
-                ClaimTypes.Name,
-                user.Name),
+        new Claim(
+            ClaimTypes.Name,
+            user.Name),
 
-            new Claim(
-                ClaimTypes.Email,
-                user.Email),
+        new Claim(
+            ClaimTypes.Email,
+            user.Email),
 
-            new Claim(
-                ClaimTypes.Role,
-                user.Role)
-        };
+        new Claim(
+            ClaimTypes.Role,
+            user.Role)
+    };
 
         var key = new SymmetricSecurityKey//here this is the secret key 
-        //but i expect the key from the appsettings.json
+                                          //but i expect the key from the appsettings.json
         (
             Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
 
         var credientials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         //SecurityAlgorithms--->contains the secret key+Signing algo
+
         var token = new JwtSecurityToken(
             issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],

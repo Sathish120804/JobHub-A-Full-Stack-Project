@@ -54,6 +54,17 @@ builder.Services.AddAuthentication(
     
     });
 builder.Services.AddAuthorization();
+//adding the cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 var app = builder.Build();//this line builds the application and 
 //returns a WebApplication instance that 
 // we can use to configure the HTTP request pipeline.
@@ -72,6 +83,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseCors("AllowReactApp");
 app.Run();
 
 // HTTP Request

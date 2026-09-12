@@ -1,55 +1,79 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Navbar({ brandName }) {
+function Navbar() {
 
-  return (
-    <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
+    const navigate = useNavigate();
 
-      <div className="container">
+    const token = localStorage.getItem("token");
 
-        <Link
-          className="navbar-brand"
-          to="/"
-        >
-          {brandName}
-        </Link>
+    const handleLogout = () => {
 
-        <div className="navbar-nav">
+        localStorage.removeItem("token");
 
-          <Link
-            className="nav-link"
-            to="/"
-          >
-            Home
-          </Link>
+        navigate("/login");
+    };
 
-          <Link
-            className="nav-link"
-            to="/jobs"
-          >
-            Jobs
-          </Link>
+    return (
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 
-          <Link
-            className="nav-link"
-            to="/login"
-          >
-            Login
-          </Link>
+            <div className="container">
 
-          <Link
-            className="nav-link"
-            to="/register"
-          >
-            Register
-          </Link>
+                <Link
+                    className="navbar-brand"
+                    to="/"
+                >
+                    JobHub
+                </Link>
 
-        </div>
+                <div className="navbar-nav">
 
-      </div>
+                    <Link
+                        className="nav-link"
+                        to="/"
+                    >
+                        Home
+                    </Link>
 
-    </nav>
-  );
+                    <Link
+                        className="nav-link"
+                        to="/jobs"
+                    >
+                        Jobs
+                    </Link>
+
+                    {!token && (
+                        <>
+                            <Link
+                                className="nav-link"
+                                to="/login"
+                            >
+                                Login
+                            </Link>
+
+                            <Link
+                                className="nav-link"
+                                to="/register"
+                            >
+                                Register
+                            </Link>
+                        </>
+                    )}
+
+                    {token && (
+                        <button
+                            className="btn btn-danger ms-2"
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </button>
+                    )}
+
+                </div>
+
+            </div>
+
+        </nav>
+    );
 }
 
 export default Navbar;
